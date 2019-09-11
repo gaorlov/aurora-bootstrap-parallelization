@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+
+opts = Slop.parse do | opts |
+  opts.string '-c', '--config', required: true
+  opts.on '--version', 'print the version' do
+    puts AuroraBootstrapParallelization::VERSION
+    exit
+  end
+end
+
+AuroraBootstrapParallelization::Runner.new( opts ).run!
