@@ -6,6 +6,9 @@ module AuroraBootstrapParallelization
 
     def deploy
       # make file named tmp/#{self.name}-job.yml
+      File.open("/tmp/#{file_name}", 'w') do | file |
+        file.write d.to_yaml
+      end
       # run kubectl create
     end
 
@@ -23,6 +26,10 @@ module AuroraBootstrapParallelization
 
     def version
       @version ||= config[:version]
+    end
+
+    def file_name
+      @file_name ||= "#{name}-job.yaml"
     end
   end
 end
