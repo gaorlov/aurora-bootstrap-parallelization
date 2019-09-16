@@ -1,0 +1,27 @@
+default: &default
+  version: 0.1.0.9
+
+env: &env
+  EPOCH_TIMESTAMP: 1568059200
+  PREFIX: prefix
+  BLACKLISTED_TABLES: /.*password.*/
+  BLACKLISTED_FIELDS: /.*password.*/
+  DB_USER: root
+  DB_PASS: root
+
+exporters:
+  - <<: *default
+    name: test-1
+    env:
+      <<: *env
+      EXPORT_BUCKET: <
+            s3//:bukkit-1
+      DB_HOST: localhost-1
+
+  - <<: *default
+    name: test-2
+    env:
+      <<: *env
+      EXPORT_BUCKET: <
+            s3//:bukkit-2
+      DB_HOST: localhost-2

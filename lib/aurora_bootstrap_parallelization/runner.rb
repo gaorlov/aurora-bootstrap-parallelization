@@ -1,7 +1,7 @@
 module AuroraBootstrapParallelization
   class Runner
     def initialize( opts )
-      @config = Yaml.load_file( opts[ :config ] )
+      @config = YAML.load_file( opts[ :config ] )[ "exporters" ]
     end
 
     def run!

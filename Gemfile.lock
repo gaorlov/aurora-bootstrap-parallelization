@@ -1,13 +1,33 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    docile (1.3.2)
+    dotenv (2.7.5)
+    json (2.2.0)
+    metaclass (0.0.4)
+    minitest (5.11.3)
+    mocha (1.9.0)
+      metaclass (~> 0.0.1)
+    rake (12.3.3)
+    simplecov (0.17.0)
+      docile (~> 1.1)
+      json (>= 1.8, < 3)
+      simplecov-html (~> 0.10.0)
+    simplecov-html (0.10.2)
     slop (4.7.0)
+    zeitwerk (2.1.10)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  dotenv
+  minitest
+  mocha
+  rake
+  simplecov
   slop
+  zeitwerk
 
 BUNDLED WITH
    1.17.3
