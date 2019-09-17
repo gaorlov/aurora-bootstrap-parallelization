@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem "slop"
+gem 'slop'
 gem 'rake'
 gem 'zeitwerk'
 

@@ -12,7 +12,7 @@ module AuroraBootstrapParallelization
     def deploy
       # make file named tmp/#{self.name}-job.yml
       write_manifest
-      deploy
+      kubectl_deploy
     end
 
     def manifest
@@ -30,7 +30,7 @@ module AuroraBootstrapParallelization
     end
       
     def kubectl_deploy
-      exec "kubectl -n aurora-bootstrap create -f #{file_name}"
+      exec "kubectl -n aurora-bootstrap create -f /tmp/#{file_name}"
     end
 
     def write_manifest

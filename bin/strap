@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 
 require "zeitwerk"
+require "slop"
+
 loader = Zeitwerk::Loader.new
 loader.log!
 loader.push_dir( File.expand_path( "../../lib/", __FILE__) )

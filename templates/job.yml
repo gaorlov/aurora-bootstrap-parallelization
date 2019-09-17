@@ -22,7 +22,12 @@ spec:
         name: <%= @name %>
     spec:
       containers:      
-      - env:
+      - envFrom:
+        - configMapRef:
+            name: configs
+        - secretRef:
+            name: secrets
+        env:
         image: gaorlov/aurora-bootstrap:<%= @version %>
         imagePullPolicy: Always
         name: <%= @name %>

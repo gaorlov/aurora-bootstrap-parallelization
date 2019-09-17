@@ -32,15 +32,18 @@ class RunnerTest < Minitest::Test
           name: test-1
       spec:
         containers:
-        - env:
-            EPOCH_TIMESTAMP: 1568059200
-            PREFIX: prefix
-            BLACKLISTED_TABLES: "/.*password.*/"
-            BLACKLISTED_FIELDS: "/.*password.*/"
-            DB_USER: root
-            DB_PASS: root
-            EXPORT_BUCKET: "< s3//:bukkit-1"
-            DB_HOST: localhost-1
+        - envFrom:
+          - configMapRef:
+              name: configs
+          - secretRef:
+              name: secrets
+          env:
+          - name: EPOCH_TIMESTAMP
+            value: 1568059200
+          - name: EXPORT_BUCKET
+            value: s3//:bukkit-1
+          - name: DB_HOST
+            value: localhost-1
           image: gaorlov/aurora-bootstrap:0.1.0.9
           imagePullPolicy: Always
           name: test-1
@@ -85,15 +88,18 @@ class RunnerTest < Minitest::Test
           name: test-2
       spec:
         containers:
-        - env:
-            EPOCH_TIMESTAMP: 1568059200
-            PREFIX: prefix
-            BLACKLISTED_TABLES: "/.*password.*/"
-            BLACKLISTED_FIELDS: "/.*password.*/"
-            DB_USER: root
-            DB_PASS: root
-            EXPORT_BUCKET: "< s3//:bukkit-2"
-            DB_HOST: localhost-2
+        - envFrom:
+          - configMapRef:
+              name: configs
+          - secretRef:
+              name: secrets
+          env:
+          - name: EPOCH_TIMESTAMP
+            value: 1568059200
+          - name: EXPORT_BUCKET
+            value: s3//:bukkit-2
+          - name: DB_HOST
+            value: localhost-2
           image: gaorlov/aurora-bootstrap:0.1.0.9
           imagePullPolicy: Always
           name: test-2
