@@ -30,7 +30,7 @@ module AuroraBootstrapParallelization
     end
       
     def kubectl_deploy
-      exec "kubectl -n aurora-bootstrap create -f /tmp/#{file_name}"
+      spawn "kubectl -n aurora-bootstrap create -f /tmp/#{file_name}"
     end
 
     def write_manifest
