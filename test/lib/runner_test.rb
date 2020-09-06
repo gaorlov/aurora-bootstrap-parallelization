@@ -35,8 +35,6 @@ class RunnerTest < Minitest::Test
         - envFrom:
           - configMapRef:
               name: configs
-          - secretRef:
-              name: secrets
           env:
           - name: EPOCH_TIMESTAMP
             value: 1568059200
@@ -91,8 +89,6 @@ class RunnerTest < Minitest::Test
         - envFrom:
           - configMapRef:
               name: configs
-          - secretRef:
-              name: secrets
           env:
           - name: EPOCH_TIMESTAMP
             value: 1568059200

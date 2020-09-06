@@ -10,7 +10,7 @@ class ExporterTest < Minitest::Test
   end
 
   def test_manifest
-    assert_equal( {"apiVersion"=>"batch/v1", "kind"=>"Job", "metadata"=>{"labels"=>{"app"=>"test-exporter", "name"=>"test-exporter"}, "name"=>"test-exporter", "namespace"=>"aurora-bootstrap"}, "spec"=>{"backoffLimit"=>10, "completions"=>1, "parallelism"=>1, "template"=>{"metadata"=>{"annotations"=>{"cluster-autoscaler.kubernetes.io/safe-to-evict"=>"true", "iam.amazonaws.role"=>""}, "creationTimestamp"=>nil, "labels"=>{"app"=>"test-exporter", "job-name"=>"test-exporter", "name"=>"test-exporter"}}, "spec"=>{"containers"=>[{"envFrom"=>[{"configMapRef"=>{"name"=>"configs"}}, {"secretRef"=>{"name"=>"secrets"}}], "env"=>[{"name"=>"DB_HOST", "value"=>"localhost"}, {"name"=>"EXPORT_BUCKET", "value"=>""}], "image"=>"gaorlov/aurora-bootstrap:0.1.0.9", "imagePullPolicy"=>"Always", "name"=>"test-exporter", "resources"=>{"limits"=>{"cpu"=>"100m", "memory"=>"300Mi"}, "requests"=>{"cpu"=>"100m"}}, "terminationMessagePath"=>"/dev/termination-log", "terminationMessagePolicy"=>"File"}], "dnsConfig"=>{"options"=>[{"name"=>"ndots", "value"=>"1"}]}, "dnsPolicy"=>"ClusterFirst", "restartPolicy"=>"OnFailure", "schedulerName"=>"default-scheduler", "securityContext"=>{}, "terminationGracePeriodSeconds"=>30}}}},
+    assert_equal( {"apiVersion"=>"batch/v1", "kind"=>"Job", "metadata"=>{"labels"=>{"app"=>"test-exporter", "name"=>"test-exporter"}, "name"=>"test-exporter", "namespace"=>"aurora-bootstrap"}, "spec"=>{"backoffLimit"=>10, "completions"=>1, "parallelism"=>1, "template"=>{"metadata"=>{"annotations"=>{"cluster-autoscaler.kubernetes.io/safe-to-evict"=>"true", "iam.amazonaws.role"=>""}, "creationTimestamp"=>nil, "labels"=>{"app"=>"test-exporter", "job-name"=>"test-exporter", "name"=>"test-exporter"}}, "spec"=>{"containers"=>[{"envFrom"=>[{"configMapRef"=>{"name"=>"configs"}}], "env"=>[{"name"=>"DB_HOST", "value"=>"localhost"}, {"name"=>"EXPORT_BUCKET", "value"=>""}], "image"=>"gaorlov/aurora-bootstrap:0.1.0.9", "imagePullPolicy"=>"Always", "name"=>"test-exporter", "resources"=>{"limits"=>{"cpu"=>"100m", "memory"=>"300Mi"}, "requests"=>{"cpu"=>"100m"}}, "terminationMessagePath"=>"/dev/termination-log", "terminationMessagePolicy"=>"File"}], "dnsConfig"=>{"options"=>[{"name"=>"ndots", "value"=>"1"}]}, "dnsPolicy"=>"ClusterFirst", "restartPolicy"=>"OnFailure", "schedulerName"=>"default-scheduler", "securityContext"=>{}, "terminationGracePeriodSeconds"=>30}}}},
                   @exporter.manifest )
   end
 
@@ -48,8 +48,6 @@ class ExporterTest < Minitest::Test
             - envFrom:
               - configMapRef:
                   name: configs
-              - secretRef:
-                  name: secrets
               env:
               - name: DB_HOST
                 value: localhost
