@@ -10,6 +10,11 @@ Script that generates and applies kubernetes job manifests to run [aurora-parall
 
 ## Running
 
+To run the job, generate your [config file](#config-file), install the gems and then
+```bash
+./bin/strap -c CONFIG_FILE
+```
+
 ### Kubernetes Prerequisites
 The manifests will expect 2 kubernetes contructs:
 
@@ -72,9 +77,6 @@ exporters:
       value: 
 
   # etc. 
-```
-```bash
-./bin/strap -c CONFIG_FILE
 ```
 
 ## Running tests
