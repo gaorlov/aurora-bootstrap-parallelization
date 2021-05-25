@@ -20,7 +20,7 @@ module AuroraBootstrapParallelization
         path = File.expand_path( "../../../templates/job.yml", __FILE__ )
         erb = ERB.new( File.read( path ) ).result( binding )
         YAML.load( erb ).tap do | manifest |
-          manifest[ "spec" ][ "template" ][ "spec" ][ "containers" ][0][ "env" ] = @env
+          manifest["spec"]["jobTemplate"][ "spec" ][ "template" ][ "spec" ][ "containers" ][0][ "env" ] = @env
         end
       end
     end
