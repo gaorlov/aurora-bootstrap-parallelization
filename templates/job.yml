@@ -1,53 +1,48 @@
-apiVersion: batch/v1beta1
-kind: CronJob
+apiVersion: batch/v1
+kind: Job
 metadata:
-  name: cron-job-<%= @name %>
+  labels:
+    app: <%= @name %>
+    name: <%= @name %>
+  name: <%= @name %>
+  namespace: aurora-bootstrap
 spec:
-  schedule: "@daily"
-  jobTemplate:
+  backoffLimit: 10
+  completions: 1
+  parallelism: 1
+  template:
     metadata:
+      annotations:
+        cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
+        iam.amazonaws.role: ""
+      creationTimestamp: null
       labels:
         app: <%= @name %>
+        job-name: <%= @name %>
         name: <%= @name %>
-        name: <%= @name %>
-      namespace: aurora-bootstrap
     spec:
-      backoffLimit: 10
-      completions: 1
-      parallelism: 1
-      template:
-        metadata:
-          annotations:
-            cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
-            iam.amazonaws.role: ""
-          creationTimestamp: null
-          labels:
-            app: <%= @name %>
-            job-name: <%= @name %>
-            name: <%= @name %>
-        spec:
-          containers:      
-          - envFrom:
-            - configMapRef:
-                name: configs
-            env:
-            image: gaorlov/aurora-bootstrap:<%= @version %>
-            imagePullPolicy: Always
-            name: <%= @name %>
-            resources:
-              limits:
-                cpu: 100m
-                memory: 300Mi
-              requests:
-                cpu: 100m
-            terminationMessagePath: /dev/termination-log
-            terminationMessagePolicy: File
-          dnsConfig:
-            options:
-            - name: ndots
-              value: "1"
-          dnsPolicy: ClusterFirst
-          restartPolicy: OnFailure
-          schedulerName: default-scheduler
-          securityContext: {}
-          terminationGracePeriodSeconds: 30
+      containers:      
+      - envFrom:
+        - configMapRef:
+            name: configs
+        env:
+        image: gaorlov/aurora-bootstrap:<%= @version %>
+        imagePullPolicy: Always
+        name: <%= @name %>
+        resources:
+          limits:
+            cpu: 100m
+            memory: 300Mi
+          requests:
+            cpu: 100m
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsConfig:
+        options:
+        - name: ndots
+          value: "1"
+      dnsPolicy: ClusterFirst
+      restartPolicy: OnFailure
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30

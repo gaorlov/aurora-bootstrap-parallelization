@@ -11,6 +11,7 @@ loader.eager_load
 
 opts = Slop.parse do | opts |
   opts.string '-c', '--config', required: true
+  opts.string '--cronjob', required: true
   opts.on '--version', 'print the version' do
     puts AuroraBootstrapParallelization::VERSION
     exit
