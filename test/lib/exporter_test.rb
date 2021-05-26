@@ -78,7 +78,8 @@ class ExporterTest < Minitest::Test
 
     File.stub( :open, DummyFile.new ) do
       # assert_output is flaky
-      assert_equal manifest, @exporter.write_manifest
+      @exporter.write_manifest
+      assert_equal manifest, @exporter.instance_variable_get(:@manifest).to_yaml
     end
   end
 end

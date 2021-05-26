@@ -53,7 +53,6 @@ module AuroraBootstrapParallelization
       file = File.open("/tmp/#{file_name}", 'w')
       file.write manifest.to_yaml
       file.close
-      manifest.to_yaml
     end
 
     def to_b(string)
