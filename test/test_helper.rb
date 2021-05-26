@@ -14,7 +14,7 @@ end
 
 class DummyFile
   def write( *args )
-    puts( *args )
+    args[0]
   end
 
   def close; end

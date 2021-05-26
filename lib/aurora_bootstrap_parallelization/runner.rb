@@ -2,7 +2,7 @@ module AuroraBootstrapParallelization
   class Runner
     def initialize( opts )
       @config = YAML.load_file( opts[ :config ] )[ "exporters" ]
-      @is_cron_job = opts[:cronjob]
+      @is_cron_job = opts[ :cronjob ]
     end
 
     def run!

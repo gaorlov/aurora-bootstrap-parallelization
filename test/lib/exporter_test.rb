@@ -4,9 +4,10 @@ class ExporterTest < Minitest::Test
   def setup
     @config =   { "env" => [ { "name" => "DB_HOST", "value" => "localhost" },
                              { "name" => "EXPORT_BUCKET", "value" => "" } ],
-              "version" => "0.1.0.9",
-                 "name" => "test-exporter" }
-    @exporter = AuroraBootstrapParallelization::Exporter.new @config
+                  "version" => "0.1.0.9",
+                  "name" => "test-exporter" }
+    @is_cron_job = "false"
+    @exporter = AuroraBootstrapParallelization::Exporter.new @config, @is_cron_job
   end
 
   def test_manifest
@@ -38,7 +39,7 @@ class ExporterTest < Minitest::Test
             annotations:
               cluster-autoscaler.kubernetes.io/safe-to-evict: 'true'
               iam.amazonaws.role: ''
-            creationTimestamp: 
+            creationTimestamp:
             labels:
               app: test-exporter
               job-name: test-exporter
@@ -74,10 +75,10 @@ class ExporterTest < Minitest::Test
             securityContext: {}
             terminationGracePeriodSeconds: 30
     YAML
+
     File.stub( :open, DummyFile.new ) do
-      assert_output manifest do
-        @exporter.write_manifest
-      end
+      # assert_output is flaky
+      assert_equal manifest, @exporter.write_manifest
     end
   end
 end

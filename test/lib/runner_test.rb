@@ -2,7 +2,7 @@ require 'test_helper'
 
 class RunnerTest < Minitest::Test
   def setup
-    @runner = AuroraBootstrapParallelization::Runner.new( config: File.expand_path( "../../config.yml", __FILE__ ) )
+    @runner = AuroraBootstrapParallelization::Runner.new( {:config => File.expand_path( "../../config.yml", __FILE__ ), :cronjob => 'false'} )
   end
 
   def test_runner
@@ -25,7 +25,7 @@ class RunnerTest < Minitest::Test
         annotations:
           cluster-autoscaler.kubernetes.io/safe-to-evict: 'true'
           iam.amazonaws.role: ''
-        creationTimestamp: 
+        creationTimestamp:
         labels:
           app: test-1
           job-name: test-1
@@ -79,7 +79,7 @@ class RunnerTest < Minitest::Test
         annotations:
           cluster-autoscaler.kubernetes.io/safe-to-evict: 'true'
           iam.amazonaws.role: ''
-        creationTimestamp: 
+        creationTimestamp:
         labels:
           app: test-2
           job-name: test-2
