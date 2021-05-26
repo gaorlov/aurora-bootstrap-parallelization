@@ -2,7 +2,12 @@ module AuroraBootstrapParallelization
   class Runner
     def initialize( opts )
       @config = YAML.load_file( opts[ :config ] )[ "exporters" ]
-      @is_cron_job = opts[ :cronjob ]
+      @is_cron_job = false
+      if opts[ :cronjob ].nil?
+        @is_cron_job = false
+      else
+        @is_cron_job = opts[ :cronjob ]
+      end
     end
 
     def run!
@@ -12,8 +17,14 @@ module AuroraBootstrapParallelization
     protected
 
     def exporters
-      @config.map do | env_config |
-        Exporter.new( env_config, @is_cron_job )
+      if @is_cron_job
+        @config.map do | env_config |
+          CronjobExporter.new( env_config, @is_cron_job )
+        end
+      else
+        @config.map do | env_config |
+          JobExporter.new( env_config, @is_cron_job )
+        end
       end
     end
   end

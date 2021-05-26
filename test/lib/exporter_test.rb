@@ -6,8 +6,8 @@ class ExporterTest < Minitest::Test
                              { "name" => "EXPORT_BUCKET", "value" => "" } ],
                   "version" => "0.1.0.9",
                   "name" => "test-exporter" }
-    @is_cron_job = "false"
-    @exporter = AuroraBootstrapParallelization::Exporter.new @config, @is_cron_job
+    @is_cron_job = false
+    @exporter = AuroraBootstrapParallelization::JobExporter.new @config, @is_cron_job
   end
 
   def test_manifest

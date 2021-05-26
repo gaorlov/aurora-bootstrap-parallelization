@@ -2,7 +2,7 @@ require 'test_helper'
 
 class RunnerTest < Minitest::Test
   def setup
-    @runner = AuroraBootstrapParallelization::Runner.new( {:config => File.expand_path( "../../config.yml", __FILE__ ), :cronjob => 'false'} )
+    @runner = AuroraBootstrapParallelization::Runner.new( {:config => File.expand_path( "../../config.yml", __FILE__ ), :cronjob => false} )
   end
 
   def test_runner
