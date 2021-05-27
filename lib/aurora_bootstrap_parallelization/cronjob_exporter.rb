@@ -2,6 +2,7 @@ require 'yaml'
 require 'erb'
 
 module AuroraBootstrapParallelization
+    # for scheduled run of aurora-bootstrap script
     class CronjobExporter < Exporter
       def initialize( config, is_cron_job )
         super(config, true)

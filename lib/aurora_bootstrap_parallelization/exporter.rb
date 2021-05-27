@@ -11,7 +11,6 @@ module AuroraBootstrapParallelization
     end
 
     def deploy
-      # make file named tmp/#{self.name}-job.yml
       write_manifest
       kubectl_deploy
     end

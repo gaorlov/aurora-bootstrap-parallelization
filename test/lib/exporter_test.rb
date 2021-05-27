@@ -19,7 +19,7 @@ class ExporterTest < Minitest::Test
     assert_equal "test-exporter-job.yml", @exporter.file_name
   end
 
-  def test_write_manifest
+  def test_write_manifest_with_env
     manifest = <<~YAML
       ---
       apiVersion: batch/v1
