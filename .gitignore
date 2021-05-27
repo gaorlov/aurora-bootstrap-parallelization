@@ -1,2 +1,3 @@
 coverage
-*.yml
+us-west-*.yml
+us-east-*.yml

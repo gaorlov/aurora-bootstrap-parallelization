@@ -4,9 +4,9 @@ class ExporterTest < Minitest::Test
   def setup
     @config =   { "env" => [ { "name" => "DB_HOST", "value" => "localhost" },
                              { "name" => "EXPORT_BUCKET", "value" => "" } ],
-              "version" => "0.1.0.9",
-                 "name" => "test-exporter" }
-    @exporter = AuroraBootstrapParallelization::Exporter.new @config
+                  "version" => "0.1.0.9",
+                  "name" => "test-exporter" }
+    @exporter = AuroraBootstrapParallelization::JobExporter.new @config
   end
 
   def test_manifest
@@ -18,7 +18,7 @@ class ExporterTest < Minitest::Test
     assert_equal "test-exporter-job.yml", @exporter.file_name
   end
 
-  def test_write_manifest
+  def test_write_manifest_with_env
     manifest = <<~YAML
       ---
       apiVersion: batch/v1
@@ -38,7 +38,7 @@ class ExporterTest < Minitest::Test
             annotations:
               cluster-autoscaler.kubernetes.io/safe-to-evict: 'true'
               iam.amazonaws.role: ''
-            creationTimestamp: 
+            creationTimestamp:
             labels:
               app: test-exporter
               job-name: test-exporter
@@ -74,6 +74,7 @@ class ExporterTest < Minitest::Test
             securityContext: {}
             terminationGracePeriodSeconds: 30
     YAML
+
     File.stub( :open, DummyFile.new ) do
       assert_output manifest do
         @exporter.write_manifest

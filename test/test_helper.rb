@@ -18,6 +18,7 @@ class DummyFile
   end
 
   def close; end
+
 end
 
 require "minitest/autorun"
