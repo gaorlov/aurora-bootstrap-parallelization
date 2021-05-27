@@ -19,9 +19,6 @@ class DummyFile
 
   def close; end
 
-  def flush; end
-
-  def path; end
 end
 
 require "minitest/autorun"
