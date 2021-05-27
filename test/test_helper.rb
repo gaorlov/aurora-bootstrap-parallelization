@@ -1,7 +1,6 @@
 $LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)
 require "zeitwerk"
 require 'simplecov'
-require 'ruby_dig'
 
 loader = Zeitwerk::Loader.new
 loader.log!
