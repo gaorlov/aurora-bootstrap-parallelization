@@ -1,25 +1,19 @@
 require 'yaml'
 require 'erb'
+require 'ruby_dig'
 
 module AuroraBootstrapParallelization
-    # for one time run of aurora-bootstrap script
-    class JobExporter < Exporter
-      def initialize( config, is_cron_job )
-        super(config, false)
-      end
-
-      def manifest
-        path = File.expand_path( "../../../templates/job.yml", __FILE__ )
-        @manifest ||= begin
-        erb = ERB.new( File.read( path ) ).result( binding )
-            YAML.load( erb ).tap do | manifest |
-            manifest[ "spec" ][ "template" ][ "spec" ][ "containers" ][0][ "env" ] = @env
-            end
-        end
-      end
-  
-      def file_name
-        @file_name ||= "#{@name}-job.yml"
-      end
+  # for one time run of aurora-bootstrap script
+  class JobExporter < Exporter
+    
+    def initialize( config )
+      super( config )
+      @type = 'job'
     end
+
+    def env_path
+      ["spec", "template", "spec", "containers"]
+    end
+
+  end
 end

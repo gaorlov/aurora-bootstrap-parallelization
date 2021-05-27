@@ -6,8 +6,7 @@ class ExporterTest < Minitest::Test
                              { "name" => "EXPORT_BUCKET", "value" => "" } ],
                   "version" => "0.1.0.9",
                   "name" => "test-exporter" }
-    @is_cron_job = false
-    @exporter = AuroraBootstrapParallelization::JobExporter.new @config, @is_cron_job
+    @exporter = AuroraBootstrapParallelization::JobExporter.new @config
   end
 
   def test_manifest
@@ -77,9 +76,9 @@ class ExporterTest < Minitest::Test
     YAML
 
     File.stub( :open, DummyFile.new ) do
-      # assert_output is flaky
-      @exporter.write_manifest
-      assert_equal manifest, @exporter.instance_variable_get(:@manifest).to_yaml
+      assert_output manifest do
+        @exporter.write_manifest
+      end
     end
   end
 end

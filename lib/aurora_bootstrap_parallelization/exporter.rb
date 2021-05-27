@@ -2,12 +2,14 @@ require 'yaml'
 require 'erb'
 
 module AuroraBootstrapParallelization
+  # Load config file and create k8s job
   class Exporter
-    def initialize( config, is_cron_job )
+
+    def initialize( config )
       @name    = config[ "name" ]
       @env     = config[ "env" ]
       @version = config[ "version" ]
-      @is_cron_job = is_cron_job
+      @type = ''
     end
 
     def deploy
@@ -16,13 +18,22 @@ module AuroraBootstrapParallelization
     end
 
     def manifest
-      nil
+      @manifest ||= begin
+        erb = ERB.new( File.read( template_path ) ).result( binding )
+        YAML.load( erb ).tap do | manifest |
+          manifest.dig( *env_path )[0]["env"] = @env
+        end
+      end
+    end
+
+    def template_path
+      File.expand_path( "../../../templates/#{@type}.yml", __FILE__ )
     end
 
     def file_name
-      nil
+      @file_name ||= "#{@name}-#{@type}.yml"
     end
- 
+
     def kubectl_deploy
       spawn "kubectl -n aurora-bootstrap create -f /tmp/#{file_name}"
     end
