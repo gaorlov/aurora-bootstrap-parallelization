@@ -9,7 +9,6 @@ module AuroraBootstrapParallelization
       @name    = config[ "name" ]
       @env     = config[ "env" ]
       @version = config[ "version" ]
-      @type = ''
     end
 
     def deploy
