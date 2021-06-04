@@ -47,6 +47,7 @@ This is the full list of env vars the job will expect. It is up to you how many 
 * `ROLLBAR_TOKEN`: Rollbar token for error reporting.
 * `BLACKLISTED_FIELDS`: comma separated list of fields across all tables to exclude from export. Supports regexp for entries formatted as `/exp`/. 
 * `BLACKLISTED_TABLES`: comma separated list of tables across all databases to exclude from export. Supports regexp for entries formatted as `/exp/`
+* `WHITELISTED_TABLES`: comma separated list of tables across all databases to include from export. Supports regexp for entries formatted as `/exp/` Note: for `WHITELISTED_TABLES` make sure to add `BLACKLISTED_TABLES` with `/.*/` as the value to run the job only for the tables listed in `WHITELISTED_TABLES`
 * `DB_HOST`: connection string to Aurora MySQL host
 * `DB_USER`: DB user with `SELECT INTO S3` grant
 * `DB_PASS`: password of user
